@@ -43,7 +43,10 @@ doc: All Linux job scheduling files.
 sources:
 - type: ARTIFACT
   attributes:
-    names: [AnacronFiles, LinuxCronTabs, LinuxAtJobs]
+    names:
+      - AnacronFiles
+      - LinuxCronTabs
+      - LinuxAtJobs
 labels: [Configuration Files]
 supported_os: [Linux]
 ---
@@ -94,8 +97,20 @@ sources:
 labels: [Configuration Files]
 supported_os: [Linux]
 ---
+name: AllShellConfigs
+doc: Common shell configuration files containing global, users & root settings.
+sources:
+- type: ARTIFACT
+  attributes:
+    names:
+      - GlobalShellConfigs
+      - UsersShellConfigs
+      - RootUserShellConfigs
+labels: [Configuration Files]
+supported_os: [Linux]
+---
 name: RootUserShellHistory
-doc: Common unix root shell configuration files.
+doc: Common unix root shell history files.
 sources:
 - type: FILE
   attributes:
@@ -104,6 +119,17 @@ sources:
       - '/root/.sh_history'
       - '/root/.zhistory'
       - '/root/.zsh_history'
+labels: [Configuration Files]
+supported_os: [Linux]
+---
+name: AllUsersShellHistory
+doc: Common shell history files for root and users.
+sources:
+- type: ARTIFACT
+  attributes:
+    names:
+      - UsersShellConfigs
+      - RootUserShellConfigs
 labels: [Configuration Files]
 supported_os: [Linux]
 ---
@@ -163,6 +189,17 @@ labels: [System, Configuration Files]
 supported_os: [Linux]
 urls: ['http://en.wikipedia.org/wiki/Fstab']
 ---
+name: LinuxMountInfo
+doc: Linux mount options.
+sources:
+- type: ARTIFACT
+  attributes:
+    names:
+      - LinuxFstab
+      - LinuxProcMounts
+labels: [System, Configuration Files]
+supported_os: [Linux]
+---
 name: LinuxWtmp
 doc: Linux wtmp file.
 sources:
@@ -180,6 +217,15 @@ sources:
 labels: [Authentication, Configuration Files]
 provides: [users.username]
 supported_os: [Linux]
+---
+name: NtpConfFile
+doc: The configuration file for ntpd. e.g. ntp.conf.
+sources:
+- type: FILE
+  attributes: {paths: ['/etc/ntp.conf']}
+labels: [Configuration Files]
+supported_os: [Linux]
+urls: ['https://www.freebsd.org/cgi/man.cgi?query=ntp.conf&sektion=5']
 ---
 name: ThumbnailCacheFolder
 doc: Thumbnail cache folder.
@@ -224,7 +270,8 @@ sources:
   attributes:
     paths:
       - '/etc/rsyslog.conf'
-      - '/etc/rsyslog.d*'
+      - '/etc/rsyslog.d'
+      - '/etc/rsyslog.d/*'
 labels: [Configuration Files, Logs]
 supported_os: [Linux]
 urls: ['http://www.rsyslog.com/doc/rsyslog_conf.html']
@@ -269,7 +316,10 @@ doc: Services running on a Linux system.
 sources:
 - type: ARTIFACT
   attributes:
-    names: [LinuxXinetd, LinuxLSBInit, LinuxSysVInit]
+    names:
+      - LinuxXinetd
+      - LinuxLSBInit
+      - LinuxSysVInit
 labels: [Configuration Files, System]
 supported_os: [Linux]
 ---
@@ -296,3 +346,15 @@ sources:
 labels: [Configuration Files, System]
 supported_os: [Linux]
 urls: ['https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sec-Configuring_Yum_and_Yum_Repositories.html']
+---
+name: LinuxInitrdFiles
+doc: Initrd files in /boot/ executed on startup.
+sources:
+- type: FILE
+  attributes:
+    paths: ['/boot/initrd.*']
+labels: [Configuration Files, System]
+supported_os: [Linux]
+urls:
+  - 'http://en.wikipedia.org/wiki/Initrd'
+  - 'https://www.kernel.org/doc/Documentation/initrd.txt'
